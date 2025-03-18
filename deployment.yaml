@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-xfce-vnc
+  namespace: ubuntu-xfce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu-xfce-vnc
+  template:
+    metadata:
+      labels:
+        app: ubuntu-xfce-vnc
+    spec:
+      containers:
+      - name: ubuntu-xfce
+        image: andripras/ubuntu-xfce-vnc:1.0
+        ports:
+        - containerPort: 5901
+        - containerPort: 6901
+        volumeMounts:
+        - mountPath: "/root"
+          name: home-volume
+          subPath: "xfce-home"
